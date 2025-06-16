@@ -3,48 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Calculadora de Ruta con GPS</title>
+  <title>Calculadora de Ruta</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
 </head>
 <body>
   <div class="container">
     <h1>🗺️ Calculadora de Ruta</h1>
 
     <div class="controls">
-      <div class="mode-selector">
-        <button id="set-start" class="active">📍 Origen</button>
-        <button id="set-end">🎯 Destino</button>
-        <button id="clear-markers">❌ Limpiar</button>
+      <div>
+        <input type="text" id="start-search" placeholder="Buscar origen..." autocomplete="off" />
+        <div id="start-suggestions" class="suggestions"></div>
+
+        <input type="text" id="end-search" placeholder="Buscar destino..." autocomplete="off" />
+        <div id="end-suggestions" class="suggestions"></div>
       </div>
 
       <div class="transport-selector">
-        <button class="transport-icon active" data-mode="driving" title="Auto"><i class="fas fa-car"></i></button>
-        <button class="transport-icon" data-mode="walking" title="Caminando"><i class="fas fa-person-walking"></i></button>
-        <button class="transport-icon" data-mode="cycling" title="Bicicleta"><i class="fas fa-bicycle"></i></button>
-        <button class="transport-icon" data-mode="wheelchair" title="Silla de ruedas"><i class="fas fa-wheelchair"></i></button>
-        <button class="transport-icon" data-mode="scooter" title="Scooter"><i class="fas fa-motorcycle"></i></button>
+        <button
+          class="transport-icon active"
+          data-mode="driving"
+          title="Auto"
+          ><i class="fas fa-car"></i
+        ></button>
+        <button
+          class="transport-icon"
+          data-mode="walking"
+          title="Caminando"
+          ><i class="fas fa-person-walking"></i
+        ></button>
+        <button
+          class="transport-icon"
+          data-mode="cycling"
+          title="Bicicleta"
+          ><i class="fas fa-bicycle"></i
+        ></button>
+        <button
+          class="transport-icon"
+          data-mode="wheelchair"
+          title="Silla de ruedas"
+          ><i class="fas fa-wheelchair"></i
+        ></button>
+        <button
+          class="transport-icon"
+          data-mode="scooter"
+          title="Scooter"
+          ><i class="fas fa-motorcycle"></i
+        ></button>
       </div>
     </div>
 
     <div class="input-extra">
-      <label>Velocidad estimada (km/h): <input type="number" id="speed" value="60" min="1" /></label>
-      <label>Tiempo máximo (min): <input type="number" id="max-time" value="120" min="1" /></label>
+      <label>
+        Velocidad (km/h):
+        <input type="number" id="speed" value="40" min="1" />
+      </label>
+      <label>
+        Tiempo máximo (min):
+        <input type="number" id="max-time" value="120" min="1" />
+      </label>
     </div>
 
-    <div class="map-container">
-      <div id="map"></div>
-      <div class="route-info">
-        <h3>🛣️ Información de la Ruta</h3>
-        <p>Distancia: <span id="distance">-</span></p>
-        <p>Duración: <span id="duration">-</span></p>
-        <p>Combustible estimado: <span id="fuel">-</span></p>
-      </div>
-    </div>
+    <div id="map"></div>
+
+    <section class="route-info">
+      <p>Distancia: <span id="distance">-</span></p>
+      <p>Duración: <span id="duration">-</span></p>
+      <p>Combustible: <span id="fuel">-</span></p>
+    </section>
   </div>
 
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script
+    src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+  ></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
