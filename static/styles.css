@@ -1,0 +1,106 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f5f5;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #5e3bea;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.mode-selector button,
+.transport-icon {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.2s ease-in-out;
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.mode-selector .active,
+.transport-icon.active {
+    background-color: #5e3bea;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(94, 59, 234, 0.4);
+}
+
+.transport-selector {
+    display: flex;
+    gap: 10px;
+}
+
+.transport-icon i {
+    font-size: 22px;
+}
+
+.map-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#map {
+    height: 500px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.route-info {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+}
+
+.route-info table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.route-info td {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* Toast (mensaje emergente) */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(200, 0, 0, 0.85);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    z-index: 9999;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    animation: fadein 0.3s ease-in-out;
+}
+
+@keyframes fadein {
+    from { opacity: 0; bottom: 0; }
+    to { opacity: 1; bottom: 20px; }
+}

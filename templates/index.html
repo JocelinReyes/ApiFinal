@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculadora de Ruta con GPS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+</head>
+<body>
+  <div class="container">
+    <h1>🗺️ Calculadora de Ruta</h1>
+
+    <div class="controls" role="region" aria-label="Controles de selección de ruta">
+      <div class="mode-selector" role="group" aria-label="Seleccionar origen o destino">
+        <button id="set-start" class="active" aria-pressed="true" aria-label="Seleccionar punto de origen">
+          📍 Origen
+        </button>
+        <button id="set-end" aria-pressed="false" aria-label="Seleccionar punto de destino">
+          🎯 Destino
+        </button>
+        <button id="clear-markers" aria-label="Limpiar marcadores y ruta">
+          ❌ Limpiar
+        </button>
+      </div>
+
+      <div class="transport-selector" role="group" aria-label="Seleccionar modo de transporte">
+        <button
+          data-mode="driving"
+          class="transport-icon active"
+          aria-pressed="true"
+          aria-label="Modo auto"
+          title="Auto"
+        >
+          <i class="fas fa-car"></i>
+        </button>
+        <button
+          data-mode="walking"
+          class="transport-icon"
+          aria-pressed="false"
+          aria-label="Modo caminando"
+          title="Caminando"
+        >
+          <i class="fas fa-person-walking"></i>
+        </button>
+        <button
+          data-mode="cycling"
+          class="transport-icon"
+          aria-pressed="false"
+          aria-label="Modo bicicleta"
+          title="Bicicleta"
+        >
+          <i class="fas fa-bicycle"></i>
+        </button>
+        <button
+          data-mode="wheelchair"
+          class="transport-icon"
+          aria-pressed="false"
+          aria-label="Modo silla de ruedas"
+          title="Silla de ruedas"
+        >
+          <i class="fas fa-wheelchair"></i>
+        </button>
+        <button
+          data-mode="scooter"
+          class="transport-icon"
+          aria-pressed="false"
+          aria-label="Modo scooter"
+          title="Scooter"
+        >
+          <i class="fas fa-motorcycle"></i>
+        </button>
+      </div>
+    </div>
+
+    <main class="map-container" role="main">
+      <div id="map" aria-label="Mapa interactivo"></div>
+      <section class="route-info" aria-live="polite" aria-atomic="true">
+        <h3>🛣️ Información de la Ruta</h3>
+        <p>Distancia: <span id="distance">-</span></p>
+        <p>Duración: <span id="duration">-</span></p>
+        <p>Combustible estimado: <span id="fuel">-</span></p>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
