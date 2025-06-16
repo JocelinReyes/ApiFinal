@@ -30,7 +30,6 @@ document.getElementById('clear-markers').addEventListener('click', () => {
     document.getElementById('duration').textContent = '-';
     document.getElementById('fuel').textContent = '-';
 
-    // Limpiar botones activos
     document.querySelectorAll('.transport-icon').forEach(b => b.classList.remove('active'));
     document.querySelector('[data-mode="driving"]').classList.add('active');
 });
@@ -68,6 +67,8 @@ function toggleActive(id) {
 async function calculateRoute() {
     const start = [startMarker.getLatLng().lng, startMarker.getLatLng().lat];
     const end = [endMarker.getLatLng().lng, endMarker.getLatLng().lat];
+    const speed = parseFloat(document.getElementById('speed').value);
+    const maxTime = parseFloat(document.getElementById('max-time').value);
 
     try {
         const response = await axios.post('/calculate_route', {
@@ -84,14 +85,17 @@ async function calculateRoute() {
             weight: 5,
         }).addTo(map);
 
+        const durationMin = data.duration / 60;
         document.getElementById('distance').textContent = (data.distance / 1000).toFixed(2) + ' km';
-        document.getElementById('duration').textContent = (data.duration / 60).toFixed(1) + ' min';
+        document.getElementById('duration').textContent = durationMin.toFixed(1) + ' min';
 
-        const fuelApplicableModes = ['driving', 'scooter'];
-        if (fuelApplicableModes.includes(currentMode)) {
-            document.getElementById('fuel').textContent = data.fuel_used.toFixed(2) + ' litros';
-        } else {
-            document.getElementById('fuel').textContent = 'No aplica';
+        const fuelApplicable = ['driving', 'scooter'];
+        document.getElementById('fuel').textContent = fuelApplicable.includes(currentMode)
+            ? data.fuel_used.toFixed(2) + ' litros'
+            : 'No aplica';
+
+        if (durationMin > maxTime) {
+            showToast(`⛔ Ruta excede el tiempo máximo permitido de ${maxTime} minutos`);
         }
 
     } catch (error) {
@@ -100,7 +104,7 @@ async function calculateRoute() {
     }
 }
 
-// --- Mensaje de error visual tipo toast simple ---
+
 function showToast(message) {
     const toast = document.createElement('div');
     toast.className = 'toast';
